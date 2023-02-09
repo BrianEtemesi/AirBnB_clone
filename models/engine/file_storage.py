@@ -34,21 +34,23 @@ class FileStorage:
 
     def reload(self):
         """deserializes JSON file to objects(dictionary)"""
-        if os.path.exists(__file_path):
-            with open(__file_path, 'r') as json_file:
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, 'r') as json_file:
                 self.__objects = json.load(json_file)
 
 if __name__ == "__main__":
     
-    mod = BaseModel()
+    """mod = BaseModel()
     mod2 = BaseModel()
     modjson = mod.to_dict()
     mod2json = mod2.to_dict()
     print("object mod created, mod.id: {}".format(mod.id))
     print("object mod2 created, mod2.id: {}".format(mod2.id))
+    """
     file1 = FileStorage()
-    print("file1 of type {} created".format(type(file1).__name__))
+    """ print("file1 of type {} created".format(type(file1).__name__))
     file1.new(modjson)
     file1.new(mod2json)
-    file1.save()
+    file1.save()"""
+    file1.reload()
     print("{}".format(file1.all()))
