@@ -1,1 +1,1 @@
-Storage engines for the AirBnB clone project
+The engine directory contains all storage classes (using the same prototype).
