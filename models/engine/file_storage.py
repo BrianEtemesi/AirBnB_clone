@@ -24,8 +24,9 @@ class FileStorage:
 
     def new(self, obj):
         """sets obj.id as key in dictionary(objects)"""
-        key = obj["__class__"] + "." + obj["id"]
-        self.__objects[key] = obj
+        obj_dict = obj.to_dict()
+        key = obj_dict["__class__"] + "." + obj_dict["id"]
+        self.__objects[key] = obj_dict
 
     def save(self):
         """serializes the dictionary(objects) to the JSON file"""
@@ -40,17 +41,13 @@ class FileStorage:
 
 if __name__ == "__main__":
     
-    """mod = BaseModel()
+    mod = BaseModel()
     mod2 = BaseModel()
-    modjson = mod.to_dict()
-    mod2json = mod2.to_dict()
     print("object mod created, mod.id: {}".format(mod.id))
     print("object mod2 created, mod2.id: {}".format(mod2.id))
-    """
     file1 = FileStorage()
-    """ print("file1 of type {} created".format(type(file1).__name__))
-    file1.new(modjson)
-    file1.new(mod2json)
-    file1.save()"""
-    file1.reload()
+    print("file1 of type {} created".format(type(file1).__name__))
+    file1.new(mod)
+    file1.new(mod2)
+    file1.save()
     print("{}".format(file1.all()))
