@@ -23,8 +23,8 @@ class BaseModel:
         else:
             
             self.id = str(uuid4())
-            self.created_at = datetime.today()
-            self.updated_at = datetime.today()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             storage.new(self)
 
     def __str__(self):
@@ -36,7 +36,7 @@ class BaseModel:
 
     def save(self):
         """updates the `update_at` attribute with current datetime"""
-        self.updated_at = datetime.today()
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
