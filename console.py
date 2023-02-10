@@ -19,9 +19,12 @@ class HBNBCommand(cmd.Cmd):
         """
         
         if arg:
-            cls = globals()[arg]
-            new_obj = cls()
-            print(new_obj.id)
+            try:
+                cls = globals()[arg]
+                new_obj = cls()
+                print(new_obj.id)
+            except KeyError:
+                print("** class doesn't exist **")
         else:
             print("** class name missing **")
 
