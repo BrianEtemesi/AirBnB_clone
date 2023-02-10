@@ -5,6 +5,7 @@ entry point to a command interpreter
 """
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """command processor for the AirBnb console"""
@@ -22,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 cls = globals()[arg]
                 new_obj = cls()
+                new_obj.save()
                 print(new_obj.id)
             except KeyError:
                 print("** class doesn't exist **")
