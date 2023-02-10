@@ -24,20 +24,33 @@ class FileStorage:
 
     def new(self, obj):
         """sets obj.id as key in dictionary(objects)"""
-        obj_dict = obj.to_dict()
-        key = obj_dict["__class__"] + "." + obj_dict["id"]
-        self.__objects[key] = obj.to_dict()
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
         """serializes the dictionary(objects) to the JSON file"""
+
+        """
+        make a copy of __objects to enable the values to be
+        changed to a dictionary representation. This ensures
+        __objects always stores data in a uniform format as
+        {key : obj} and not {key : obj.to_dict()}
+        """
+        my_dict = {}
+
+        for key, value in self.__objects.items():
+            my_dict[key] = value.to_dict()
+
         with open(self.__file_path, 'w') as json_file:
-            json.dump(self.__objects, json_file)
+            json.dump(my_dict, json_file)
 
     def reload(self):
         """deserializes JSON file to objects(dictionary)"""
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as json_file:
                 self.__objects = json.load(json_file)
+            for key, value in self.__objects.items():
+                self.__objects[key] = BaseModel(**value)
 
 if __name__ == "__main__":
     
