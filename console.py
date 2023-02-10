@@ -17,9 +17,13 @@ class HBNBCommand(cmd.Cmd):
         saves it to the json file and prints
         the id
         """
-        cls = globals()[arg]
-        new_obj = cls()
-        print(new_obj)
+        
+        if arg:
+            cls = globals()[arg]
+            new_obj = cls()
+            print(new_obj.id)
+        else:
+            print("** class name missing **")
 
     def emptyline(self):
         """console to execute nothing when you press enter without an argument"""
@@ -36,4 +40,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
