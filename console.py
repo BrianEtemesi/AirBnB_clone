@@ -49,18 +49,19 @@ class HBNBCommand(cmd.Cmd):
                     for key, value in file_data.items():
                         if key == name_id:
                             print(value)
+                            break
                         else:
                             print("** no instance found **")
             except KeyError:
                 print("** class doesn't exist **")
-                """
-                storage.reload()
-                a = storage.all()
-                for key, value in a.items():
-                    print(value)
-                """
         else:
             print("** class name missing **")
+
+    def do_destroy(self, arg):
+        """
+        deletes an instance based on name and id
+        updates the changes to the JSON file
+        """
 
     def emptyline(self):
         """console to execute nothing when you press enter without an argument"""
