@@ -6,7 +6,11 @@ instances
 """
 import json
 from models.base_model import BaseModel
-import os
+from models.user import User
+import os.path
+import sys
+#sys.path.append('/home/vagrant/AirBnb_clone/models')
+#from base_model import BaseModel
 
 class FileStorage:
     """

@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+from models.base_model import BaseModel
+
+class User(BaseModel):
+
+    first_name = ""
+    last_name = ""
+    email = ""
+    password = ""
+
+if __name__ == '__main__':
+    user1 = User()
+    print(user1.__dict__)
