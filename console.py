@@ -121,6 +121,25 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         print(" ** Key not found ** ")
 
+    def do_all(self, arg):
+        """
+        prints all string representation of instances based or not
+        on the class name
+        """
+
+        all_objs = storage.all()
+        if arg:
+            try:
+                cls = globals()[arg]
+                for key, value in all_objs.items():
+                    if type(key) == cls:
+                        print(value)
+            except KeyError:
+                print("** class doesn't exist **")
+        else:
+            for key, value in all_objs.items():
+                print(value)
+
     def emptyline(self):
         """console to execute nothing when you press enter without an argument"""
         pass
