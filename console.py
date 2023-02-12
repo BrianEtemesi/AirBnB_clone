@@ -45,14 +45,12 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
                 else:
                     name_id = args[0] + "." + args[1]
-                    storage.reload()
                     file_data = storage.all()
                     for key, value in file_data.items():
                         if key == name_id:
                             print(value)
-                            break
-                        else:
-                            print("** no instance found **")
+                            return
+                    print("** no instance found **")
             except KeyError:
                 print("** class doesn't exist **")
         else:
@@ -73,14 +71,12 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
                 else:
                     name_id = args[0] + "." + args[1]
-                    storage.reload()
                     file_data = storage.all()
                     for key, value in file_data.items():
                         if key == name_id:
                             del file_data[key]
-                            break
-                        else:
-                            print("** no instance found **")
+                            return
+                    print("** no instance found **")
             except KeyError:
                 print("** class doesn't exist **")
         else:
@@ -132,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 cls = globals()[arg]
                 for key, value in all_objs.items():
-                    if type(key) == cls:
+                    if type(value) == cls:
                         print(value)
             except KeyError:
                 print("** class doesn't exist **")
