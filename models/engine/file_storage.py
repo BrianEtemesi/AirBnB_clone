@@ -54,5 +54,3 @@ class FileStorage:
                 self.__objects = json.load(json_file)
             for key, value in self.__objects.items():
                 self.__objects[key] = self.class_dict[value["__class__"]](**value)
-
-if __name__ == "__main__":
