@@ -9,8 +9,7 @@ from models.base_model import BaseModel
 from models.user import User
 import os.path
 import sys
-#sys.path.append('/home/vagrant/AirBnb_clone/models')
-#from base_model import BaseModel
+
 
 class FileStorage:
     """
@@ -52,5 +51,5 @@ class FileStorage:
         if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as json_file:
                 self.__objects = json.load(json_file)
-            for key, value in self.__objects.items():
-                self.__objects[key] = self.class_dict[value["__class__"]](**value)
+            for key, val in self.__objects.items():
+                self.__objects[key] = self.class_dict[val["__class__"]](**val)
