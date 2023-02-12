@@ -8,6 +8,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     """command processor for the AirBnb console"""
 
@@ -19,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
         saves it to the json file and prints
         the id
         """
-        
+
         if arg:
             try:
                 cls = globals()[arg]
@@ -81,18 +82,18 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
-    
+
     def do_update(self, arg):
         """
-        Updates an instance based on the class name and ID by adding or updating attribute
+        Updates an instance based on the class name and ID by
+        adding or updating attribute
         The changes are saved to the json file
         """
         if arg:
-            args = arg.split() 
+            args = arg.split()
             if len(args) < 4:
-                print(" ** Usage: do_update <class_name> <id> <attr_name> <attr_value>")
                 return
-            
+
             class_name = args[0]
             id = args[1]
             attr_name = args[2]
@@ -137,13 +138,16 @@ class HBNBCommand(cmd.Cmd):
                 print(value)
 
     def emptyline(self):
-        """console to execute nothing when you press enter without an argument"""
+        """
+        console to execute nothing when you press enter
+        without an argument
+        """
         pass
 
     def do_quit(self, line):
         """Exits the program"""
         exit(1)
-    
+
     def do_EOF(self, line):
         """handles End of File"""
         return True
