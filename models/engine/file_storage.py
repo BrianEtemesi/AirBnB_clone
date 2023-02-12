@@ -19,6 +19,7 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
+    class_dict = {"BaseModel": BaseModel, "User": User}
 
     def all(self):
         """returns the dictionary `objects` """
@@ -52,17 +53,6 @@ class FileStorage:
             with open(self.__file_path, 'r') as json_file:
                 self.__objects = json.load(json_file)
             for key, value in self.__objects.items():
-                self.__objects[key] = BaseModel(**value)
+                self.__objects[key] = self.class_dict[value["__class__"]](**value)
 
 if __name__ == "__main__":
-    
-    mod = BaseModel()
-    mod2 = BaseModel()
-    print("object mod created, mod.id: {}".format(mod.id))
-    print("object mod2 created, mod2.id: {}".format(mod2.id))
-    file1 = FileStorage()
-    print("file1 of type {} created".format(type(file1).__name__))
-    file1.new(mod)
-    file1.new(mod2)
-    file1.save()
-    print("{}".format(file1.all()))
