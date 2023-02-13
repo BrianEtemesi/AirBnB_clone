@@ -3,7 +3,7 @@
 This module defines a `State` class that
 inherites from a superclass `BaseClass`
 """
-from models.base_class import BaseModel
+from models.base_model import BaseModel
 
 
 class State(BaseModel):

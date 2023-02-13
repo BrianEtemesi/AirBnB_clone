@@ -6,6 +6,8 @@ entry point to a command interpreter
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.state import State
 from models import storage
 
 
@@ -109,14 +111,12 @@ class HBNBCommand(cmd.Cmd):
                 reloaded_data = storage.all()
                 for key, value in reloaded_data.items():
                     if key == name_id:
-                        instance_dict = value
                         # Add the attibute name to the dictionary and its value
-                        instance_dict[attr_name] = attr_value
+                        setattr(value, attr_name, attr_value)
                         # Save the file
                         storage.save()
-                        break
-                    else:
-                        print(" ** Key not found ** ")
+                        return
+                print(" ** Key not found ** ")
 
     def do_all(self, arg):
         """
