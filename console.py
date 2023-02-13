@@ -117,6 +117,8 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                         return
                 print(" ** Key not found ** ")
+        else:
+            print("** class name missing **")
 
     def do_all(self, arg):
         """
