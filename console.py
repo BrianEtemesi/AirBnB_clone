@@ -106,7 +106,6 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
                 else:
                     name_id = args[0] + "." + args[1]
-                    storage.reload()
                     loaded_data = storage.all()
                     for key, value in loaded_data.items():
                         if key == name_id:
