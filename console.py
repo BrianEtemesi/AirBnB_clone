@@ -8,6 +8,9 @@ from models.base_model import BaseModel
 from models.user import User
 from models.city import City
 from models.state import State
+from models.review import Review
+from models.place import Place
+from models.amenity import Amenity
 from models import storage
 
 
@@ -68,6 +71,8 @@ class HBNBCommand(cmd.Cmd):
         if arg:
 
             args = arg.split()
+            if len(args) < 3:
+                print("** attribute name missing **")
             try:  # check if class name exits
                 cls = globals()[args[0]]
                 if len(args) == 1:
@@ -91,6 +96,10 @@ class HBNBCommand(cmd.Cmd):
         adding or updating attribute
         The changes are saved to the json file
         """
+        if not arg:
+            print("** class name missing **")
+            return
+
         if arg:
             args = arg.split()
 
@@ -100,7 +109,6 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
                 else:
                     name_id = args[0] + "." + args[1]
-                    storage.reload()
                     loaded_data = storage.all()
                     for key, value in loaded_data.items():
                         if key == name_id:
