@@ -6,6 +6,8 @@ entry point to a command interpreter
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.state import State
 from models import storage
 
 
@@ -91,32 +93,32 @@ class HBNBCommand(cmd.Cmd):
         """
         if arg:
             args = arg.split()
-            if len(args) < 4:
-                return
 
-            class_name = args[0]
-            id = args[1]
-            attr_name = args[2]
-            attr_value = args[3]
-
-            if class_name not in globals():
-                print(" ** Class does not exist ** ")
-                return
-            else:
-                name_id = class_name + "." + id
-                storage.reload()
-                # Store reloaded data
-                reloaded_data = storage.all()
-                for key, value in reloaded_data.items():
-                    if key == name_id:
-                        instance_dict = value
-                        # Add the attibute name to the dictionary and its value
-                        instance_dict[attr_name] = attr_value
-                        # Save the file
-                        storage.save()
-                        break
-                    else:
-                        print(" ** Key not found ** ")
+            try:
+                cls = globals()[args[0]]
+                if len(args) == 1:
+                    print("** instance id missing **")
+                else:
+                    name_id = args[0] + "." + args[1]
+                    storage.reload()
+                    loaded_data = storage.all()
+                    for key, value in loaded_data.items():
+                        if key == name_id:
+                            if len(args) == 2:
+                                print("** attribute name missing **")
+                            elif len(args) == 3:
+                                print("** value missing **")
+                            else:
+                                attr_name = args[2]
+                                attr_value = args[3]
+                                setattr(value, attr_name, attr_value)
+                                storage.save()
+                            return
+                    print("** no instance found **")
+            except KeyError:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
 
     def do_all(self, arg):
         """
