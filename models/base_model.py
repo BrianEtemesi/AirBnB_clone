@@ -7,6 +7,7 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """
     Parent class that defines all common attributes and
@@ -18,10 +19,10 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     setattr(self, key, value)
-            self.created_at = datetime.strptime(self.created_at, "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(self.updated_at, "%Y-%m-%dT%H:%M:%S.%f")
+            _format = "%Y-%m-%dT%H:%M:%S.%f"
+            self.created_at = datetime.strptime(self.created_at, _format)
+            self.updated_at = datetime.strptime(self.updated_at, _format)
         else:
-            
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
@@ -41,7 +42,6 @@ class BaseModel:
 
     def to_dict(self):
         """returns a dictionary with all key/values of __dict__"""
-        
         new_dict = {}
         for key, value in self.__dict__.items():
             if key == "created_at" or key == "updated_at":
