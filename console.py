@@ -91,6 +91,10 @@ class HBNBCommand(cmd.Cmd):
         adding or updating attribute
         The changes are saved to the json file
         """
+        if not arg:
+            print("**class name missing**")
+            return
+
         if arg:
             args = arg.split()
 
