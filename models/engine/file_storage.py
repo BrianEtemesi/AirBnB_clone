@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 This module contains a class FileStorage that serializes
-instanses to a JSON file and deserializes JSON file to
+instances to a JSON file and deserializes JSON file to
 instances
 """
 import json
@@ -13,7 +13,6 @@ from models.review import Review
 from models.place import Place
 from models.amenity import Amenity
 import os.path
-import sys
 
 
 class FileStorage:
@@ -29,12 +28,12 @@ class FileStorage:
 
     def all(self):
         """returns the dictionary `objects` """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """sets obj.id as key in dictionary(objects)"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """serializes the dictionary(objects) to the JSON file"""
@@ -47,16 +46,17 @@ class FileStorage:
         """
         my_dict = {}
 
-        for key, value in self.__objects.items():
+        for key, value in FileStorage.__objects.items():
             my_dict[key] = value.to_dict()
 
-        with open(self.__file_path, 'w') as json_file:
+        with open(FileStorage.__file_path, 'w') as json_file:
             json.dump(my_dict, json_file)
 
     def reload(self):
         """deserializes JSON file to objects(dictionary)"""
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, 'r') as json_file:
-                self.__objects = json.load(json_file)
-            for key, val in self.__objects.items():
-                self.__objects[key] = self.class_dict[val["__class__"]](**val)
+        if os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, 'r') as json_file:
+                FileStorage.__objects = json.load(json_file)
+            for key, val in FileStorage.__objects.items():
+                FileStorage.__objects[key] = FileStorage.class_dict[val["__class__"]](**val)
+
