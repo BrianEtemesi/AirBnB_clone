@@ -36,7 +36,7 @@ class BaseModel:
         return "[{}] ({}) {}".format(classname, iid, i_dic)
 
     def save(self):
-        """updates the `update_at` attribute with current datetime"""
+        """updates the `updated_at` attribute with current datetime"""
         self.updated_at = datetime.now()
         models.storage.save()
 
@@ -50,3 +50,4 @@ class BaseModel:
                 new_dict[key] = value
         new_dict["__class__"] = type(self).__name__
         return new_dict
+
