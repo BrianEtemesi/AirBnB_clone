@@ -69,16 +69,17 @@ class HBNBCommand(cmd.Cmd):
         """
 
         if arg:
+
             args = arg.split()
             if len(args) < 3:
                 print("** attribute name missing **")
-            try:  # check if class name exists
-                cls = args[0]
+            try:  # check if class name exits
+                cls = globals()[args[0]]
                 if len(args) == 1:
                     print("** instance id missing **")
                 else:
                     name_id = args[0] + "." + args[1]
-                    file_data = models.storage.all()
+                    file_data = storage.all()
                     for key, value in file_data.items():
                         if key == name_id:
                             del file_data[key]
@@ -88,8 +89,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
-
-
 
     def do_update(self, arg):
         """
