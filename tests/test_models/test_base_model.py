@@ -1,50 +1,41 @@
 import unittest
+from datetime import datetime
 from models.base_model import BaseModel
-import datetime
 
 class TestBaseModel(unittest.TestCase):
-    """
-    Test class for BaseModel class
-    """
+    """Tests the BaseModel class"""
 
     def setUp(self):
-        """
-        Set up method to run before each test case
-        """
-        self.model = BaseModel()
-        self.model.name = "Holberton"
-        self.model.my_number = 89
-        self.model.created_at = datetime.datetime(2022, 3, 22, 1, 0, 0, 0)
-        self.model.updated_at = datetime.datetime(2022, 3, 22, 1, 0, 0, 0)
+        """Sets up test cases"""
+        self.test_base_model = BaseModel()
 
-    def tearDown(self):
-        """
-        Tear down method that runs after each test case
-        """
-        del self.model
+    def test_to_dict(self):
+        """Tests the to_dict method of BaseModel"""
+        test_dict = self.test_base_model.to_dict()
+        self.assertEqual(type(test_dict), dict)
+        self.assertEqual(test_dict["__class__"], "BaseModel")
+        self.assertEqual(type(test_dict["created_at"]), str)
+        self.assertEqual(type(test_dict["updated_at"]), str)
 
-    def test_attribute_types(self):
-        """
-        Test to check if attributes are correctly set and of correct type
-        """
-        self.assertIsInstance(self.model.name, str)
-        self.assertIsInstance(self.model.my_number, int)
-        self.assertIsInstance(self.model.created_at, datetime.datetime)
-        self.assertIsInstance(self.model.updated_at, datetime.datetime)
+    def test_id(self):
+        """Tests the id attribute of BaseModel"""
+        self.assertEqual(str, type(self.test_base_model.id))
 
-    def test_save_method(self):
-        """
-        Test to check if save method updates the `updated_at` attribute
-        """
-        original_update_time = self.model.updated_at
-        self.model.save()
-        self.assertNotEqual(original_update_time, self.model.updated_at)
+    def test_created_at(self):
+        """Tests the created_at attribute of BaseModel"""
+        self.assertEqual(datetime, type(self.test_base_model.created_at))
 
-    def test_str_method(self):
-        """
-        Test to check if the str method returns the expected output
-        """
-        expected_output = "[BaseModel] ({}) {}".format(self.model.id,
-                                                      self.model.__dict__)
-        self.assertEqual(str(self.model), expected_output)
+    def test_updated_at(self):
+        """Tests the updated_at attribute of BaseModel"""
+        self.assertEqual(datetime, type(self.test_base_model.updated_at))
+
+    def test_save(self):
+        """Tests the save method of BaseModel"""
+        before = self.test_base_model.updated_at
+        self.test_base_model.save()
+        after = self.test_base_model.updated_at
+        self.assertNotEqual(before, after)
+
+if __name__ == '__main__':
+    unittest.main()
 
