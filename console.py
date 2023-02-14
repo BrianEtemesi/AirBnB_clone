@@ -83,6 +83,7 @@ class HBNBCommand(cmd.Cmd):
                     for key, value in file_data.items():
                         if key == name_id:
                             del file_data[key]
+                            storage.save()
                             return
                     print("** no instance found **")
             except KeyError:
