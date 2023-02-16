@@ -50,4 +50,3 @@ class BaseModel:
                 new_dict[key] = value
         new_dict["__class__"] = type(self).__name__
         return new_dict
-
