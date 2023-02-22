@@ -16,8 +16,6 @@ body {
  color: #484848;
  font-size: 14px;
  font: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
- display: flex;
- flex-direction: column;
 }
 
 /*
